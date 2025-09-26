@@ -1,56 +1,43 @@
-void quickSort({required List<int> items}){
+void main() {
+  List<int> num = [100, 2, 1, 4, 5];
+  print("Input : $num");
+  quickSort(num);
+  print("Output : $num");
+}
 
-  /// Case 1: if it empty or have one element
-  if(items.length <= 1){
+void quickSort(List<int> num) {
+  if (num.length <= 1) {
+    print(num);
     return;
   }
+  sort(num, 0, num.length - 1);
+}
 
-  /// Case 2: Sort list
-  for (int i = 0; i < items.length; i++) {
-    for (int j = 0; j < items.length - 1; j++) {
-      if (items[i] < items[j]) {
-        final temp = items[i];
-        items[i] = items[j];
-        items[j] = temp;
-      }
-    }
+void sort(List<int> num, int low, int heigh) {
+  if (low < heigh) {
+    int pivotIndex = partition(num, low, heigh);
+    sort(num, low, pivotIndex-1);
+    sort(num, pivotIndex+1, heigh);
   }
 }
 
-void main() {
-  List<int> n1 = [100,1,45,-1,20,8,50,1000,200,79,1];
-  print('Original list: $n1');
-  quickSort(items: n1);
-  print('Sorted list:   $n1');
-  print('-----------------------------------\n');
+int partition(List<int> num, int low, int heigh) {
+  int pivot = num[heigh];
+  int i = low - 1;
 
-/*  List<int> n2 = [2,5,4,3,1];
-  print('Original list: $n2');
-  quickSort(items: n2);
-  print('Sorted list:   $n2');
-  print('-----------------------------------\n');
+  for (int j = low; j < heigh; j++) {
+    if (num[j] <= pivot) {
+      i++;
+      swap(num, i, j);
+    }
+  }
 
-  List<int> n3 = [7];
-  print('Original list: $n3');
-  quickSort(items: n3);
-  print('Sorted list:   $n3');
-  print('-----------------------------------\n');
+  swap(num, i + 1, heigh);
+  return i + 1;
+}
 
-  List<int> n4 = [];
-  print('Original list: $n4');
-  quickSort(items: n4);
-  print('Sorted list:   $n4');
-  print('-----------------------------------\n');
-
-  List<int> n5 = [38, 27, 43, 3, 9, 82, 10];
-  print('Original list: $n5');
-  quickSort(items: n5);
-  print('Sorted list:   $n5');
-  print('-----------------------------------\n');
-
-  List<int> n6 = [2,1];
-  print('Original list: $n6');
-  quickSort(items: n6);
-  print('Sorted list:   $n6');
-  print('-----------------------------------\n');*/
+void swap(List<int> num, int i, int j) {
+  int temp = num[i];
+  num[i] = num[j];
+  num[j] = temp;
 }
